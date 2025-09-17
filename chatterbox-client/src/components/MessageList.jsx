@@ -1,12 +1,7 @@
-import React from "react";
-import Message from "./Message";
+import React from 'react'
+import Message from './Message'
 
-function MessageList({
-  messages,
-  currentUser,
-  onMessageDelete,
-  onUpdateMessage,
-}) {
+function MessageList({ messages, currentUser, onMessageDelete, onUpdateMessage }) {
   return (
     <div className="list">
       <ul>
@@ -21,7 +16,7 @@ function MessageList({
         ))}
       </ul>
     </div>
-  );
+  )
 }
 
-export default MessageList;
+export default MessageList

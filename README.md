@@ -16,11 +16,12 @@ This project is separated into two applications:
 - A React frontend, in the `chatterbox-client` directory
 - A Sinatra backend, in the `chatterbox-server` directory
 
-All of the features for the React frontend are built out, and we have a simple
-`json-server` API that you can run to see what the completed version of the app
-will look like. Your main goal with this lab is to build out a Sinatra API
+All of the features for the React frontend are built out, and we include a
+simple `json-server` demo API (serving `db.json`) so you can see a completed
+version of the app. Your main goal with this lab is to build out a Sinatra API
 server to replace `json-server`, so most of your coding will be done in the
-backend.
+backend. The demo API is provided for convenience and is not the long-term
+target for this project.
 
 ## Frontend Setup
 
@@ -29,19 +30,31 @@ Let's take a quick tour of what we have so far.
 To get started, `cd` into the `chatterbox-client` directory. Then run:
 
 ```console
-$ npm install
-$ npm run server
+npm install
+npm run server
 ```
 
-This will install the React project dependencies, and run a demo API server
-using `json-server`. Next, run this in a new terminal:
+This installs the frontend dependencies and starts the demo API using
+`json-server` (serving `db.json`). In a separate terminal start the frontend
+dev server:
 
 ```console
-$ npm start
+npm start
 ```
 
-Then visit [http://localhost:3000](http://localhost:3000) in the browser and
-interact with the demo application to get a sense of its features.
+This starts the Vite dev server (it prints the actual local URL, typically
+`http://localhost:5173`). Open that URL in your browser to interact with the
+demo application.
+
+To build a production bundle and preview it locally, run:
+
+```console
+npm run build
+npm run preview
+```
+
+`npm run build` creates a `dist/` directory and `npm run preview` serves the
+built files for quick testing.
 
 Here's a demo of the what the React app should look like when using
 `json-server` as the API:
@@ -128,19 +141,22 @@ next time you see them, you'll know what this means!
 ## Instructions
 
 Work through the deliverables below. There are tests in the `chatterbox-server`
-folder. Because of this lab's project structure, running `learn test` won't work
-— instead, you'll need to `cd` into the `chatterbox-server` directory and run
-`rspec` (or `bundle exec rspec`) to run the tests for the Sinatra backend.
+folder. To run them, `cd` into the `chatterbox-server` directory and run
+`bin/rspec` (or `bundle exec rspec`) to run the tests for the Sinatra backend.
 
 Make sure to try out your routes from the React frontend application as well
 once you have everything set up. You can run your Sinatra server with:
 
 ```console
-$ bundle exec rake server
+bin/rake server
 ```
 
-You'll need to change the `fetch` requests in React to use
-`http://localhost:9292` as well.
+If you run the Sinatra backend at `http://localhost:9292` you can use absolute
+fetch URLs like `http://localhost:9292/messages`. However, the frontend is
+configured with a Vite dev proxy (`chatterbox-client/vite.config.mjs`), so
+during local development you can keep React fetches relative (for example
+`fetch('/messages')`) and the Vite dev server will forward those requests to
+the Sinatra backend.
 
 ### Model
 
@@ -156,7 +172,7 @@ After creating the model and migrations, run the migrations and use the provided
 `seeds.rb` file to seed the database:
 
 ```console
-$ bundle exec rake db:migrate db:seed
+bin/rake db:migrate db:seed
 ```
 
 ### Routes

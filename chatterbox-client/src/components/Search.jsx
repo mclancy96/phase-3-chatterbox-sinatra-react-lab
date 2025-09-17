@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 
 function Search({ search, onSearchChange }) {
   return (
@@ -9,10 +9,10 @@ function Search({ search, onSearchChange }) {
         placeholder="Search..."
         autoComplete="off"
         value={search}
-        onChange={e => onSearchChange(e.target.value)}
+        onChange={(e) => onSearchChange(e.target.value)}
       />
     </nav>
-  );
+  )
 }
 
-export default Search;
+export default Search
